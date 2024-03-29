@@ -1,5 +1,9 @@
 package tw.appworks.school.example.stylish.controller.v1;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +24,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("api/1.0/user")
+@Tag(name = "User", description = "Endpoints for user sign-in, sign-up and get user profile.")
 public class UserController {
 
     private static final String _native = UserService.NATIVE;
@@ -34,6 +39,20 @@ public class UserController {
         this.userService = userService;
     }
 
+    @Operation(
+            summary = "Endpoint for user sign-up",
+            description = "The endpoint for user sign-up and save user info to database.",
+            tags = {"User"},
+            responses = {
+                    @ApiResponse(
+                            description = "Success",
+                            responseCode = "200",
+                            content = @Content(mediaType = "application/json")
+                    ),
+                    @ApiResponse(description = "Not found", responseCode = "404", content = @Content),
+                    @ApiResponse(description = "Internal error", responseCode = "500", content = @Content)
+            }
+    )
     @PostMapping(value = "/signup", consumes = {"application/json"})
     @ResponseBody
     public ResponseEntity<?> signUp(@RequestBody SignupForm signupForm, HttpServletResponse response) {
@@ -45,6 +64,20 @@ public class UserController {
         }
     }
 
+    @Operation(
+            summary = "Endpoint for user sign-in",
+            description = "The endpoint for user sign-in and save user info to database.",
+            tags = {"User"},
+            responses = {
+                    @ApiResponse(
+                            description = "Success",
+                            responseCode = "200",
+                            content = @Content(mediaType = "application/json")
+                    ),
+                    @ApiResponse(description = "Not found", responseCode = "404", content = @Content),
+                    @ApiResponse(description = "Internal error", responseCode = "500", content = @Content)
+            }
+    )
     @PostMapping(value = "/signin", consumes = {"application/json"})
     @ResponseBody
     public ResponseEntity<?> signIn(@RequestBody SignInFrom signInFrom, HttpServletResponse response) {
@@ -67,6 +100,19 @@ public class UserController {
         }
     }
 
+    @Operation(
+            summary = "Endpoint for getting user profile",
+            description = "Set JWT token in request header and get the parsed user profile from JWT token.",
+            tags = {"User"},
+            responses = {
+                    @ApiResponse(
+                            description = "Success",
+                            responseCode = "200"
+                    ),
+                    @ApiResponse(description = "Not found", responseCode = "404", content = @Content),
+                    @ApiResponse(description = "Internal error", responseCode = "500", content = @Content)
+            }
+    )
     @GetMapping("/profile")
     @ResponseBody
     public ResponseEntity<?> getProfile(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorization) {

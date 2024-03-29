@@ -1,6 +1,10 @@
 package tw.appworks.school.example.stylish.controller.v1;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -17,6 +21,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("api/1.0/order")
+@Tag(name = "Orders", description = "Endpoints for fetching orders")
 public class OrderController {
 
     private final OrderService orderService;
@@ -30,6 +35,20 @@ public class OrderController {
         this.userService = userService;
     }
 
+    @Operation(
+            summary = "Checkout the order",
+            description = "Checkout the order and insert the payment .",
+            tags = {"Orders"},
+            responses = {
+                    @ApiResponse(
+                            description = "Success",
+                            responseCode = "200",
+                            content = @Content(mediaType = "application/json")
+                    ),
+                    @ApiResponse(description = "Not found", responseCode = "404", content = @Content),
+                    @ApiResponse(description = "Internal error", responseCode = "500", content = @Content)
+            }
+    )
     @PostMapping(value = "/checkout", consumes = {"application/json"})
     @ResponseBody
     public ResponseEntity<?> checkout(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorization,
