@@ -34,7 +34,7 @@ public class OrderServiceImpl implements OrderService {
     @Value("${tappay.partner.key}")
     private String TAPPAY_PARTNER_KEY;
 
-    @Value("${tappay,merchant.id}")
+    @Value("${tappay.merchant.id}")
     private String TAPPAY_MERCHANT_ID;
 
     private static final int PAYMENT_STATE_UNPAID = -1;

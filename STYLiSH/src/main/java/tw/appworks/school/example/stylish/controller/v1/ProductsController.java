@@ -1,5 +1,8 @@
 package tw.appworks.school.example.stylish.controller.v1;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,6 +32,22 @@ public class ProductsController {
         this.productService = productService;
     }
 
+    @Operation(
+            summary = "Get products by category",
+            description = "Get product details by it's category,\n" +
+                    "please type in the correct category to find the product you want,\n" +
+                    "only women, men, accessories, all 4 types of categories are supported).",
+            tags = {"Products"},
+            responses = {
+                    @ApiResponse(
+                            description = "Success",
+                            responseCode = "200",
+                            content = @Content(mediaType = "application/json")
+                    ),
+                    @ApiResponse(description = "Not found", responseCode = "404", content = @Content),
+                    @ApiResponse(description = "Internal error", responseCode = "500", content = @Content)
+            }
+    )
     @GetMapping("/{category}")
     @ResponseBody
     public ResponseEntity<?> getProducts(@PathVariable String category,
