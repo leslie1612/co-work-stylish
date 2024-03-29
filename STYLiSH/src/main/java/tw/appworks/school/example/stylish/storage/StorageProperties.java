@@ -9,6 +9,7 @@ public class StorageProperties {
      * Folder location for storing files
      */
     private String location = "src/main/resources/static/assets";
+//    private String location = "appwork23-stylish.s3.amazonaws.com/assets";
 
     public String getLocation() {
         return location;
