@@ -3,6 +3,7 @@ package tw.appworks.school.example.stylish.controller.v1;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,6 +20,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("api/1.0/products")
+@Tag(name = "Products", description = "Endpoints for fetching products")
 public class ProductsController {
 
     private final ProductService productService;
@@ -62,6 +64,21 @@ public class ProductsController {
                         ret.size() > pagingSize ? paging.orElse(0) + 1 : null));
     }
 
+
+    @Operation(
+            summary = "Finds products details",
+            description = "Finds a product details by it's Id.",
+            tags = {"Products"},
+            responses = {
+                    @ApiResponse(
+                            description = "Success",
+                            responseCode = "200",
+                            content = @Content(mediaType = "application/json")
+                    ),
+                    @ApiResponse(description = "Not found", responseCode = "404", content = @Content),
+                    @ApiResponse(description = "Internal error", responseCode = "500", content = @Content)
+            }
+    )
     @GetMapping("/details")
     @ResponseBody
     public ResponseEntity<?> getProductDetail(@RequestParam(name = "id") long id) {
@@ -69,6 +86,22 @@ public class ProductsController {
         return ResponseEntity.status(HttpStatus.OK).body(new StylishResponse<>(ret));
     }
 
+
+    @Operation(
+            summary = "Search products details",
+            description = "Search a product details by it's keyword,\n" +
+                    "please type in the keyword to find the product you want.",
+            tags = {"Products"},
+            responses = {
+                    @ApiResponse(
+                            description = "Success",
+                            responseCode = "200",
+                            content = @Content(mediaType = "application/json")
+                    ),
+                    @ApiResponse(description = "Not found", responseCode = "404", content = @Content),
+                    @ApiResponse(description = "Internal error", responseCode = "500", content = @Content)
+            }
+    )
     @GetMapping("/search")
     @ResponseBody
     public ResponseEntity<?> searchProducts(@RequestParam(name = "keyword") String keyword,
