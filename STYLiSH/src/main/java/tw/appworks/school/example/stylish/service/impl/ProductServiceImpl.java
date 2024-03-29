@@ -151,9 +151,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     private void appendPrefix(ProductDto dto) {
-        if (prefix == null) createPrefix();
-        dto.setMainImage(prefix + dto.getMainImage());
-        dto.setImages(dto.getImages().stream().map(image -> prefix + image).collect(Collectors.toSet()));
+//        if (prefix == null) createPrefix();
+//        dto.setMainImage(prefix + dto.getMainImage());
+//        dto.setImages(dto.getImages().stream().map(image -> prefix + image).collect(Collectors.toSet()));
+
+        // set image path
+        dto.setMainImage("https://d23yremcmyn3ne.cloudfront.net/" + dto.getMainImage());
+        dto.setImages(dto.getImages().stream().map(image -> "https://d23yremcmyn3ne.cloudfront.net/" + image).collect(Collectors.toSet()));
     }
 
 }

@@ -10,6 +10,7 @@ import tw.appworks.school.example.stylish.storage.StorageProperties;
 
 @SpringBootApplication
 @EnableCaching
+//@EnableConfigurationProperties(StorageProperties.class)
 @EnableConfigurationProperties(StorageProperties.class)
 @OpenAPIDefinition(
         info = @Info(
