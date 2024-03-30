@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 import tw.appworks.school.example.stylish.model.campaign.Campaign;
@@ -29,11 +30,15 @@ public class CampaignDto implements Serializable {
     @JsonProperty("story")
     private String story;
 
+//    @Value("${cloudfront.domain}")
+//    private static String imageDomain;
+
     public static CampaignDto from(Campaign campaign) {
+
         CampaignDto dto = new CampaignDto();
         dto.setId(campaign.getId());
         dto.setProductId(campaign.getProduct().getId());
-        dto.setPicture(campaign.getPicture());
+        dto.setPicture("https://d23yremcmyn3ne.cloudfront.net/"+campaign.getPicture());
         dto.setStory(campaign.getStory());
         return dto;
     }
