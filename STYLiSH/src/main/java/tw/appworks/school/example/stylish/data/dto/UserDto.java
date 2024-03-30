@@ -28,6 +28,11 @@ public class UserDto {
     @JsonProperty("picture")
     private String picture;
 
+    @JsonProperty("color")
+    private String favorColor;
+
+    @JsonProperty("birthday")
+    private String birthday;
     public static UserDto from(User user) {
         UserDto dto = new UserDto();
         dto.setId(user.getId());
@@ -35,6 +40,8 @@ public class UserDto {
         dto.setName(user.getName());
         dto.setEmail(user.getEmail());
         dto.setPicture(user.getPicture());
+        dto.setFavorColor(user.getFavorColor());
+        dto.setBirthday(user.getBirthday());
         return dto;
     }
 

@@ -120,8 +120,10 @@ public class UserServiceImpl implements UserService {
                 .publishOn(Schedulers.boundedElastic())
                 .map(profile -> {
                     Role r = roleRepository.findRoleByName(role);
+
+                    //===========================
                     return SignInDto.from(createUser(profile.getName(), profile.getEmail(), null, FACEBOOK,
-                            "https://graph.facebook.com/" + profile.getId() + "/picture?type=large", r));
+                            "https://graph.facebook.com/" + profile.getId() + "/picture?type=large", r,null, null));
                 })
                 .block();
     }
@@ -129,13 +131,15 @@ public class UserServiceImpl implements UserService {
     // get user info from signup form
     @Nonnull
     private User createUser(SignupForm signupForm, String provider, Role role) {
-        return createUser(signupForm.getName(), signupForm.getEmail(), signupForm.getPassword(), provider, null, role);
+        return createUser(signupForm.getName(), signupForm.getEmail(),
+                signupForm.getPassword(), provider, null,
+                role,signupForm.getFavorColor(),signupForm.getBirthday());
     }
 
     // create user by native and fb
     @Nonnull
     private User createUser(String name, String email, @Nullable String password, String provider,
-                            @Nullable String picture, Role role) {
+                            @Nullable String picture, Role role, String color,String birthday) {
         String token = jwtTokenUtil.generateToken(email, List.of(role.getName()));
         User user = new User();
         user.setRole(role);
@@ -149,6 +153,10 @@ public class UserServiceImpl implements UserService {
         user.setAccessToken(token);
         user.setAccessExpired(jwtTokenUtil.getExpirationDateFromToken(token).getTime());
         user.setLoginAt(Timestamp.from(Instant.now()));
+
+        //===========================
+        user.setFavorColor(color);
+        user.setBirthday(birthday);
         return user;
     }
 

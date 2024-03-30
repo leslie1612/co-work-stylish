@@ -126,7 +126,7 @@ public class UserServiceTest {
 
     @Test
     public void signup_success() throws UserService.UserExistException, UserService.RoleNotFoundException {
-        SignupForm signupForm = new SignupForm("fakeName", "fake@email", "fakePassword");
+        SignupForm signupForm = new SignupForm("fakeName", "fake@email", "fakePassword","fakeColor","fakeBirthday");
 
         when(jwtTokenUtil.generateToken(any(), any())).thenReturn("fakeToken");
         when(jwtTokenUtil.getExpirationDateFromToken(any())).thenReturn(new Date());
@@ -141,7 +141,7 @@ public class UserServiceTest {
 
     @Test
     public void signup_failed_user_exist() {
-        SignupForm signupForm = new SignupForm("fakeName", "fake2@email", "fakePassword");
+        SignupForm signupForm = new SignupForm("fakeName", "fake2@email", "fakePassword","fakeColor","fakeBirthday");
         when(userRepository.findUserByEmail(any())).thenReturn(fakeUser);
 
         UserService.UserExistException e = assertThrows(
@@ -156,7 +156,7 @@ public class UserServiceTest {
 
     @Test
     public void signup_failed_role_not_found() {
-        SignupForm signupForm = new SignupForm("fakeName", "fake2@email", "fakePassword");
+        SignupForm signupForm = new SignupForm("fakeName", "fake2@email", "fakePassword","fakeColor","fakeBirthday");
         when(userRepository.findUserByEmail(any())).thenReturn(null);
         when(roleRepository.findRoleByName(any())).thenReturn(null);
 
