@@ -17,4 +17,11 @@ public class SignupForm {
     @JsonProperty("password")
     private String password;
 
+    @JsonProperty("color")
+    private String favorColor;
+
+    @JsonProperty("birthday")
+    private String birthday;
+
+
 }

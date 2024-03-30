@@ -47,11 +47,27 @@ public class User {
     @Column(name = "login_at")
     private Timestamp loginAt;
 
+    @Column(name = "color")
+    private String favorColor;
+
+    @Column(name = "birthday")
+    private String birthday;
+
     @Override
     public String toString() {
-        return "User [id=" + id + ", role=" + role + ", provider=" + provider + ", email=" + email + ", password="
-                + password + ", name=" + name + ", picture=" + picture + ", accessToken=" + accessToken
-                + ", accessExpired=" + accessExpired + ", loginAt=" + loginAt + "]";
+        return "User{" +
+                "id=" + id +
+                ", role=" + role +
+                ", provider='" + provider + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", picture='" + picture + '\'' +
+                ", accessToken='" + accessToken + '\'' +
+                ", accessExpired=" + accessExpired +
+                ", loginAt=" + loginAt +
+                ", favorColor='" + favorColor + '\'' +
+                ", birthday='" + birthday + '\'' +
+                '}';
     }
-
 }
