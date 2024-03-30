@@ -2,6 +2,7 @@ package tw.appworks.school.example.stylish.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryMXBean;
@@ -11,7 +12,8 @@ import java.lang.management.MemoryUsage;
 public class MemoryMonitor {
 
     @GetMapping("/memory/status")
-    public void checkStatus(){
+    @ResponseBody
+    public String checkStatus(){
         MemoryMXBean memoryMXBean = ManagementFactory.getMemoryMXBean();
         MemoryUsage heapMemoryUsage = memoryMXBean.getHeapMemoryUsage();
         MemoryUsage nonHeapMemoryUsage = memoryMXBean.getNonHeapMemoryUsage();
@@ -27,6 +29,17 @@ public class MemoryMonitor {
         System.out.println("  Used: " + nonHeapMemoryUsage.getUsed());
         System.out.println("  Committed: " + nonHeapMemoryUsage.getCommitted());
         System.out.println("  Max: " + nonHeapMemoryUsage.getMax());
+
+        return "Heap Memory Usage:\n" +
+                "  Init: " + heapMemoryUsage.getInit() + "\n" +
+                "  Used: " + heapMemoryUsage.getUsed() + "\n" +
+                "  Committed: " + heapMemoryUsage.getCommitted() + "\n" +
+                "  Max: " + heapMemoryUsage.getMax() + "\n" +
+                "Non-Heap Memory Usage:\n" +
+                "  Init: " + nonHeapMemoryUsage.getInit() + "\n" +
+                "  Used: " + nonHeapMemoryUsage.getUsed() + "\n" +
+                "  Committed: " + nonHeapMemoryUsage.getCommitted() + "\n" +
+                "  Max: " + nonHeapMemoryUsage.getMax();
     }
 }
 
