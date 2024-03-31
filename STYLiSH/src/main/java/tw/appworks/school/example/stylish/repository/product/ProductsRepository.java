@@ -22,7 +22,7 @@ public interface ProductsRepository extends JpaRepository<Product, Long>, Produc
                 LEFT JOIN variant v ON p.id = v.product_id
                 LEFT JOIN color c ON v.color_id = c.id
                 LEFT JOIN product_images i ON v.product_id = i.product_id
-                LEFT JOIN rating r ON r.pid = p.id
+                LEFT JOIN rating r ON p.id = r.pid;
             """,
             nativeQuery = true)
     List<IProductProjection> searchProductByTitle(@Param("keyword") String keyword, @Param("pagingSize") int pagingSize,
@@ -48,7 +48,7 @@ public interface ProductsRepository extends JpaRepository<Product, Long>, Produc
                 LEFT JOIN variant v ON p.id = v.product_id
                 LEFT JOIN color c ON v.color_id = c.id
                 LEFT JOIN product_images i ON v.product_id = i.product_id
-                LEFT JOIN rating r ON r.pid = p.id;
+                LEFT JOIN rating r ON p.id = r.pid;
             """, nativeQuery = true)
     List<IProductProjection> fetchProductById(@Param("id") Long id);
 
