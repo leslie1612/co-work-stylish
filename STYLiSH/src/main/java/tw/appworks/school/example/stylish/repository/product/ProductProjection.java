@@ -43,4 +43,6 @@ public class ProductProjection implements IProductProjection {
 
     private String colorName;
 
+    private Double rate;
+
 }

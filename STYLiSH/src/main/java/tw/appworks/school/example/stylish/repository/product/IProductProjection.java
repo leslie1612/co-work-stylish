@@ -34,4 +34,5 @@ public interface IProductProjection {
 
     String getColorName();
 
+    Double getRate();
 }

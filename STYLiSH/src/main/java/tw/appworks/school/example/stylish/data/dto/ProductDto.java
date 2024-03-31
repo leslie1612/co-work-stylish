@@ -57,6 +57,9 @@ public class ProductDto {
     @JsonProperty("sizes")
     private Set<String> sizes;
 
+    @JsonProperty("rate")
+    private Double rate;
+
     public void updateAll(IProductProjection mp) {
         updateColors(mp);
         updateVariant(mp);
@@ -101,6 +104,7 @@ public class ProductDto {
         ret.setPlace(mp.getPlace());
         ret.setNote(mp.getNote());
         ret.setStory(mp.getStory());
+        ret.setRate(mp.getRate());
         ret.updateAll(mp);
         return ret;
     }
