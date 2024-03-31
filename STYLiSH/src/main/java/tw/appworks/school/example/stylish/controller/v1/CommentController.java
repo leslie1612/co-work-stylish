@@ -3,10 +3,8 @@ package tw.appworks.school.example.stylish.controller.v1;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import tw.appworks.school.example.stylish.data.StylishResponse;
 import tw.appworks.school.example.stylish.data.form.CommentForm;
 import tw.appworks.school.example.stylish.service.CommentService;
 
@@ -24,7 +22,6 @@ public class CommentController {
     public ResponseEntity<Object> postComment(@RequestBody CommentForm commentForm){
 
         try {
-
             commentService.saveComment(commentForm);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
@@ -32,6 +29,14 @@ public class CommentController {
             System.out.println(e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
+    }
+
+    @ResponseBody
+    @GetMapping("/api/1.0/comments")
+    public ResponseEntity<Object> getComment(@RequestParam(name = "id") long productId){
+
+        return ResponseEntity.status(HttpStatus.OK).body(new StylishResponse<>(commentService.getComments(productId)));
+
     }
 
 }
