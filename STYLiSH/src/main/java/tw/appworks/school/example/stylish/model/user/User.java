@@ -56,6 +56,9 @@ public class User {
     @Column(name = "gender")
     private String gender;
 
+    @Column(name = "coupon")
+    private Integer coupon =0;
+
     @Override
     public String toString() {
         return "User{" +

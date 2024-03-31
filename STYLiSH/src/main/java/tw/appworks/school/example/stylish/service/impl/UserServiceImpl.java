@@ -123,7 +123,7 @@ public class UserServiceImpl implements UserService {
 
                     //===========================
                     return SignInDto.from(createUser(profile.getName(), profile.getEmail(), null, FACEBOOK,
-                            "https://graph.facebook.com/" + profile.getId() + "/picture?type=large", r,null, null,null));
+                            "https://graph.facebook.com/" + profile.getId() + "/picture?type=large", r,null, null,null,0));
                 })
                 .block();
     }
@@ -133,13 +133,13 @@ public class UserServiceImpl implements UserService {
     private User createUser(SignupForm signupForm, String provider, Role role) {
         return createUser(signupForm.getName(), signupForm.getEmail(),
                 signupForm.getPassword(), provider, null,
-                role,signupForm.getFavorColor(),signupForm.getBirthday(), signupForm.getGender());
+                role,signupForm.getFavorColor(),signupForm.getBirthday(), signupForm.getGender(),0);
     }
 
     // create user by native and fb
     @Nonnull
     private User createUser(String name, String email, @Nullable String password, String provider,
-                            @Nullable String picture, Role role, String color,String birthday,String gender) {
+                            @Nullable String picture, Role role, String color,String birthday,String gender,Integer coupon) {
         String token = jwtTokenUtil.generateToken(email, List.of(role.getName()));
         User user = new User();
         user.setRole(role);
@@ -158,6 +158,7 @@ public class UserServiceImpl implements UserService {
         user.setFavorColor(color);
         user.setBirthday(birthday);
         user.setGender(gender);
+        user.setCoupon(coupon);
         return user;
     }
 

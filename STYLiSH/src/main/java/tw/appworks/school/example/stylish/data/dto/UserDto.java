@@ -36,6 +36,9 @@ public class UserDto {
 
     @JsonProperty("gender")
     private String gender;
+
+    @JsonProperty("coupon")
+    private Integer coupon;
     public static UserDto from(User user) {
         UserDto dto = new UserDto();
         dto.setId(user.getId());
@@ -46,6 +49,7 @@ public class UserDto {
         dto.setFavorColor(user.getFavorColor());
         dto.setBirthday(user.getBirthday());
         dto.setGender(user.getGender());
+        dto.setCoupon(user.getCoupon());
         return dto;
     }
 
