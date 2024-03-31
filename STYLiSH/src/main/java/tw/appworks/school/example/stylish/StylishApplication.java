@@ -26,7 +26,6 @@ import tw.appworks.school.example.stylish.storage.StorageProperties;
 )
 public class StylishApplication {
 
-
     public static void main(String[] args) {
         SpringApplication.run(StylishApplication.class, args);
     }

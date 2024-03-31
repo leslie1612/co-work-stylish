@@ -26,5 +26,4 @@ public class SignupForm {
     @JsonProperty("gender")
     private String gender;
 
-
 }
