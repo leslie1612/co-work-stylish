@@ -21,7 +21,7 @@ public class ProductProjectionRepositoryImpl implements ProductProjectionReposit
     @Override
     public List<ProductProjection> fetchAllProductsByCategory(@Param("category") String category,
                                                               @Param("pagingSize") int pagingSize, @Param("currentOffset") int offset) {
-        log.info("in fetchAllProductsByCategory 1");
+
         String query = """
                     SELECT p.id, p.category, p.title, p.description, p.price, p.texture,
                         p.wash, p.place, p.note, p.story, p.main_image as mainImage,

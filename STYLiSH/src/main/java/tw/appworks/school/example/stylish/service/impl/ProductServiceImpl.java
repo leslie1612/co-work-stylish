@@ -70,9 +70,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDto> getProducts(@Nonnull String category, int pagingSize, int paging) {
-        logger.info("in get products 1");
         List<ProductProjection> products = getProductsProjections(category, pagingSize + 1, paging * pagingSize);
-        logger.info("in get products 2");
         return mapProjectionToDto(products);
     }
 
@@ -99,7 +97,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     private List<ProductProjection> getProductsProjections(@Nonnull String category, int pagingSize, int paging) {
-        log.info("in getProductsProjections 1 ");
+
         return productsRepository.fetchAllProductsByCategory(category, pagingSize + 1, paging * pagingSize);
     }
 
@@ -113,7 +111,6 @@ public class ProductServiceImpl implements ProductService {
     public void saveProduct(ProductForm productForm, StorageService storageService) {
         Product p = Product.from(productForm);
         final Product product = saveProduct(p);
-        logger.info(product.toString());
 
         saveProductImage(ProductImage.from(product, productForm));
 
@@ -141,7 +138,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     private List<ProductDto> mapProjectionToDto(List<? extends IProductProjection> projections) {
-        logger.info("in mapping 1 ");
+
         Map<Long, ProductDto> map = new HashMap<>();
         projections.forEach(mediatorProduct -> {
             ProductDto p = map.get(mediatorProduct.getId());
