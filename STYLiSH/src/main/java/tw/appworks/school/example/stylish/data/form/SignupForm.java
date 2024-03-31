@@ -23,5 +23,8 @@ public class SignupForm {
     @JsonProperty("birthday")
     private String birthday;
 
+    @JsonProperty("gender")
+    private String gender;
+
 
 }
