@@ -53,6 +53,9 @@ public class User {
     @Column(name = "birthday")
     private String birthday;
 
+    @Column(name = "gender")
+    private String gender;
+
     @Override
     public String toString() {
         return "User{" +
@@ -68,6 +71,7 @@ public class User {
                 ", loginAt=" + loginAt +
                 ", favorColor='" + favorColor + '\'' +
                 ", birthday='" + birthday + '\'' +
+                ", gender='" + gender + '\'' +
                 '}';
     }
 }
