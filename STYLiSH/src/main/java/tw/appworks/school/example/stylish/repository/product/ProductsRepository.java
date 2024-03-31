@@ -15,12 +15,14 @@ public interface ProductsRepository extends JpaRepository<Product, Long>, Produc
     @Query(value = """
                 SELECT p.id, p.category, p.title, p.description, p.price, p.texture,
                         p.wash, p.place, p.note, p.story, p.main_image as mainImage,
-                        v.size, v.stock, i.image, c.code as colorCode, c.name as colorName
+                        v.size, v.stock, i.image, c.code as colorCode, c.name as colorName,
+                        round(AVG(r.rate),1) as rate
                 FROM
                 (SELECT * FROM product WHERE title LIKE %:keyword% ORDER BY id DESC LIMIT :pagingSize OFFSET :currentOffset) p
                 LEFT JOIN variant v ON p.id = v.product_id
                 LEFT JOIN color c ON v.color_id = c.id
                 LEFT JOIN product_images i ON v.product_id = i.product_id
+                LEFT JOIN rating r ON r.pid = p.id
             """,
             nativeQuery = true)
     List<IProductProjection> searchProductByTitle(@Param("keyword") String keyword, @Param("pagingSize") int pagingSize,

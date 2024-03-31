@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,6 +22,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("api/1.0/products")
 @Tag(name = "Products", description = "Endpoints for fetching products")
+@Slf4j
 public class ProductsController {
 
     //pushing testing
@@ -60,6 +62,7 @@ public class ProductsController {
             throw new ServletRequestBindingException("Wrong Request");
 
         List<ProductDto> ret = productService.getProducts(category, paging.orElse(0));
+
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new StylishResponse<>(ret.stream().limit(pagingSize).toList(),
                         ret.size() > pagingSize ? paging.orElse(0) + 1 : null));

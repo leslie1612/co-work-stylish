@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -43,6 +45,6 @@ public class ProductProjection implements IProductProjection {
 
     private String colorName;
 
-    private Double rate;
+    private BigDecimal rate;
 
 }

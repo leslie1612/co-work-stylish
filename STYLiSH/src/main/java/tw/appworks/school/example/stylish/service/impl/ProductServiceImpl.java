@@ -1,6 +1,7 @@
 package tw.appworks.school.example.stylish.service.impl;
 
 import jakarta.annotation.Nonnull;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,6 +24,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
+@Slf4j
 public class ProductServiceImpl implements ProductService {
 
     @Value("${stylish.domain}")
@@ -68,12 +70,15 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDto> getProducts(@Nonnull String category, int pagingSize, int paging) {
+        logger.info("in get products 1");
         List<ProductProjection> products = getProductsProjections(category, pagingSize + 1, paging * pagingSize);
+        logger.info("in get products 2");
         return mapProjectionToDto(products);
     }
 
     @Override
     public List<ProductDto> getProducts(@Nonnull String category, int paging) {
+
         return getProducts(category, pagingSize, paging);
     }
 
@@ -94,6 +99,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     private List<ProductProjection> getProductsProjections(@Nonnull String category, int pagingSize, int paging) {
+        log.info("in getProductsProjections 1 ");
         return productsRepository.fetchAllProductsByCategory(category, pagingSize + 1, paging * pagingSize);
     }
 
@@ -135,6 +141,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     private List<ProductDto> mapProjectionToDto(List<? extends IProductProjection> projections) {
+        logger.info("in mapping 1 ");
         Map<Long, ProductDto> map = new HashMap<>();
         projections.forEach(mediatorProduct -> {
             ProductDto p = map.get(mediatorProduct.getId());
