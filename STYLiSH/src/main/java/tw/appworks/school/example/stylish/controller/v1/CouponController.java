@@ -1,5 +1,8 @@
 package tw.appworks.school.example.stylish.controller.v1;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -25,6 +28,22 @@ public class CouponController {
 
     @PostMapping(value = "/update")
     @ResponseBody
+    @Operation(
+            summary = "Update coupon number by userId",
+            description = "Update an user's coupon quantity by using userId,\n" +
+                    "each new user start with 0 coupon,\n" +
+                    "once they get a new coupon or use a coupon, you can type -1 or 1 in the num parameter.",
+            tags = {"Coupon"},
+            responses = {
+                    @ApiResponse(
+                            description = "Success",
+                            responseCode = "200",
+                            content = @Content(mediaType = "application/json")
+                    ),
+                    @ApiResponse(description = "Not found", responseCode = "404", content = @Content),
+                    @ApiResponse(description = "Internal error", responseCode = "500", content = @Content)
+            }
+    )
     public ResponseEntity<?> updateCouponByUser(@RequestParam Integer num,
                                                 @RequestParam Integer userId){
         try{
@@ -42,8 +61,22 @@ public class CouponController {
         }
     }
 
-    @PostMapping(value = "/get")
+    @GetMapping(value = "/get")
     @ResponseBody
+    @Operation(
+            summary = "Get coupon number by userId",
+            description = "Get an user's total coupon quantity by using userId." ,
+            tags = {"Coupon"},
+            responses = {
+                    @ApiResponse(
+                            description = "Success",
+                            responseCode = "200",
+                            content = @Content(mediaType = "application/json")
+                    ),
+                    @ApiResponse(description = "Not found", responseCode = "404", content = @Content),
+                    @ApiResponse(description = "Internal error", responseCode = "500", content = @Content)
+            }
+    )
     public ResponseEntity<?> getTotalCouponByUser(@RequestParam Integer userId){
         try{
             Map<String,Object>resultMap = couponService.getCouponByUser(userId);
