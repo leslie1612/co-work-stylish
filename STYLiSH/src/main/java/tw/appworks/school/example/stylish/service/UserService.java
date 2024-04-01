@@ -1,10 +1,13 @@
 package tw.appworks.school.example.stylish.service;
 
+import jakarta.mail.MessagingException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import tw.appworks.school.example.stylish.data.dto.SignInDto;
 import tw.appworks.school.example.stylish.data.dto.UserDto;
 import tw.appworks.school.example.stylish.data.form.SignupForm;
 import tw.appworks.school.example.stylish.model.user.User;
+
+import java.io.UnsupportedEncodingException;
 
 public interface UserService extends UserDetailsService {
 
@@ -57,7 +60,7 @@ public interface UserService extends UserDetailsService {
 
     User getUserByToken(String token) throws UserNotExistException;
 
-    SignInDto signup(SignupForm signupForm, String role) throws UserExistException, RoleNotFoundException;
+    SignInDto signup(SignupForm signupForm, String role) throws UserExistException, RoleNotFoundException, MessagingException, UnsupportedEncodingException;
 
     SignInDto nativeSign(String email, String password) throws UserNotExistException, UserPasswordMismatchException;
 

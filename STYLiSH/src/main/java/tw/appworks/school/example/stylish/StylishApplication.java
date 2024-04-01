@@ -5,11 +5,12 @@ import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.servers.Server;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.thymeleaf.ThymeleafAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.annotation.EnableCaching;
 import tw.appworks.school.example.stylish.storage.StorageProperties;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = { ThymeleafAutoConfiguration.class })
 @EnableCaching
 //@EnableConfigurationProperties(StorageProperties.class)
 @EnableConfigurationProperties(StorageProperties.class)

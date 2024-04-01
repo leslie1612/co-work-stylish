@@ -2,6 +2,8 @@ package tw.appworks.school.example.stylish.service.impl;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
+import jakarta.mail.MessagingException;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,11 +23,13 @@ import tw.appworks.school.example.stylish.repository.user.RoleRepository;
 import tw.appworks.school.example.stylish.repository.user.UserRepository;
 import tw.appworks.school.example.stylish.service.UserService;
 
+import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.List;
 
 @Service
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     public static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
@@ -38,11 +42,14 @@ public class UserServiceImpl implements UserService {
 
     private final JwtTokenUtil jwtTokenUtil;
 
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, JwtTokenUtil jwtTokenUtil) {
+    private final MailGunServiceImpl mailGunService;
+
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, JwtTokenUtil jwtTokenUtil, MailGunServiceImpl mailGunService) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtTokenUtil = jwtTokenUtil;
+        this.mailGunService = mailGunService;
     }
 
     @Override
@@ -70,7 +77,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public SignInDto signup(SignupForm signupForm, String role) throws UserExistException, RoleNotFoundException {
+    public SignInDto signup(SignupForm signupForm, String role) throws UserExistException, RoleNotFoundException, MessagingException, UnsupportedEncodingException {
         User user = userRepository.findUserByEmail(signupForm.getEmail());
         if (user != null) {
             throw new UserExistException(signupForm.getEmail() + " is already exist");
@@ -85,6 +92,9 @@ public class UserServiceImpl implements UserService {
         }
 
         User saved = userRepository.save(createUser(signupForm, NATIVE, r));
+        //mailgun發送認證信
+        String result = mailGunService.sendRegisterMail(saved);
+        log.info(result);
         return SignInDto.from(saved);
     }
 

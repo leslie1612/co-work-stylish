@@ -11,13 +11,24 @@ import java.util.List;
 @SuppressWarnings({"SqlDialectInspection", "SqlNoDataSourceInspection"})
 @Repository
 public interface ProductsRepository extends JpaRepository<Product, Long>, ProductProjectionRepository {
-
+//====================老師原query
+//    @Query(value = """
+//                SELECT p.id, p.category, p.title, p.description, p.price, p.texture,
+//                        p.wash, p.place, p.note, p.story, p.main_image as mainImage,
+//                        v.size, v.stock, i.image, c.code as colorCode, c.name as colorName
+//                FROM
+//                (SELECT * FROM product WHERE title LIKE %:keyword% ORDER BY id DESC LIMIT :pagingSize OFFSET :currentOffset) p
+//                LEFT JOIN variant v ON p.id = v.product_id
+//                LEFT JOIN color c ON v.color_id = c.id
+//                LEFT JOIN product_images i ON v.product_id = i.product_id
+//            """,
+//            nativeQuery = true)
     @Query(value = """
                 SELECT p.id, p.category, p.title, p.description, p.price, p.texture,
                         p.wash, p.place, p.note, p.story, p.main_image as mainImage,
                         v.size, v.stock, i.image, c.code as colorCode, c.name as colorName
                 FROM
-                (SELECT * FROM product WHERE title LIKE %:keyword% ORDER BY id DESC LIMIT :pagingSize OFFSET :currentOffset) p
+                (SELECT * FROM product WHERE title LIKE %:keyword% ORDER BY id LIMIT :pagingSize OFFSET :currentOffset) p
                 LEFT JOIN variant v ON p.id = v.product_id
                 LEFT JOIN color c ON v.color_id = c.id
                 LEFT JOIN product_images i ON v.product_id = i.product_id

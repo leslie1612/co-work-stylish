@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,7 @@ import tw.appworks.school.example.stylish.data.form.SignupForm;
 import tw.appworks.school.example.stylish.error.ErrorResponse;
 import tw.appworks.school.example.stylish.service.UserService;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Optional;
 
 @RestController
@@ -61,6 +63,10 @@ public class UserController {
             return getBodyBuilder(dto).body(new StylishResponse<>(dto));
         } catch (UserService.UserException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(e.getMessage()));
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
         }
     }
 

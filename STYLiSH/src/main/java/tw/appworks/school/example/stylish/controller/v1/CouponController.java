@@ -42,7 +42,7 @@ public class CouponController {
         }
     }
 
-    @PostMapping(value = "/get")
+    @GetMapping(value = "/get")
     @ResponseBody
     public ResponseEntity<?> getTotalCouponByUser(@RequestParam Integer userId){
         try{
