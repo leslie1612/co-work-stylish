@@ -2,6 +2,7 @@ package tw.appworks.school.example.stylish.service;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
+import tw.appworks.school.example.stylish.data.dto.ProductDetailsDto;
 import tw.appworks.school.example.stylish.data.dto.ProductDto;
 import tw.appworks.school.example.stylish.data.form.ProductForm;
 import tw.appworks.school.example.stylish.model.product.Product;
@@ -23,4 +24,7 @@ public interface ProductService {
 
     void saveProduct(ProductForm productForm, StorageService storageService);
 
+//    Double getRating(long id);
+
+    ProductDetailsDto getProductDetails(long id);
 }

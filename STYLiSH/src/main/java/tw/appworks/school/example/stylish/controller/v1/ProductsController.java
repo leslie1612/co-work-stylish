@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.*;
 import tw.appworks.school.example.stylish.data.StylishResponse;
+import tw.appworks.school.example.stylish.data.dto.ProductDetailsDto;
 import tw.appworks.school.example.stylish.data.dto.ProductDto;
 import tw.appworks.school.example.stylish.service.ProductService;
 
@@ -21,6 +23,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("api/1.0/products")
 @Tag(name = "Products", description = "Endpoints for fetching products")
+@Slf4j
 public class ProductsController {
 
     //pushing testing
@@ -60,6 +63,7 @@ public class ProductsController {
             throw new ServletRequestBindingException("Wrong Request");
 
         List<ProductDto> ret = productService.getProducts(category, paging.orElse(0));
+
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new StylishResponse<>(ret.stream().limit(pagingSize).toList(),
                         ret.size() > pagingSize ? paging.orElse(0) + 1 : null));
@@ -83,8 +87,30 @@ public class ProductsController {
     @GetMapping("/details")
     @ResponseBody
     public ResponseEntity<?> getProductDetail(@RequestParam(name = "id") long id) {
-        ProductDto ret = productService.getProduct(id);
-        return ResponseEntity.status(HttpStatus.OK).body(new StylishResponse<>(ret));
+//        ProductDto ret = productService.getProduct(id);
+
+
+        ProductDetailsDto productDetailsDto = productService.getProductDetails(id);
+
+//        productDetailsDto.setId(ret.getId());
+//        productDetailsDto.setCategory(ret.getCategory());
+//        productDetailsDto.setTitle(ret.getTitle());
+//        productDetailsDto.setDescription(ret.getDescription());
+//        productDetailsDto.setPrice(ret.getPrice());
+//        productDetailsDto.setTexture(ret.getTexture());
+//        productDetailsDto.setWash(ret.getWash());
+//        productDetailsDto.setPlace(ret.getPlace());
+//        productDetailsDto.setNote(ret.getNote());
+//        productDetailsDto.setStory(ret.getStory());
+//        productDetailsDto.setMainImage(ret.getMainImage());
+//        productDetailsDto.setImages(ret.getImages());
+//        productDetailsDto.setVariants(ret.getVariants());
+//        productDetailsDto.setColors(ret.getColors());
+//        productDetailsDto.setSizes(ret.getSizes());
+
+//        productService.getRating(id);
+
+        return ResponseEntity.status(HttpStatus.OK).body(new StylishResponse<>(productDetailsDto));
     }
 
 

@@ -3,11 +3,14 @@ package tw.appworks.school.example.stylish.data.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import tw.appworks.school.example.stylish.repository.product.IProductProjection;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
+@Slf4j
 @Data
 @NoArgsConstructor
 public class ProductDto {
@@ -57,12 +60,18 @@ public class ProductDto {
     @JsonProperty("sizes")
     private Set<String> sizes;
 
+//    @JsonProperty("rate")
+//    private BigDecimal rate;
+
     public void updateAll(IProductProjection mp) {
+
         updateColors(mp);
         updateVariant(mp);
         updateSize(mp);
         updateImages(mp);
+
     }
+
 
     private void updateColors(IProductProjection mp) {
         if (colors == null)
@@ -101,6 +110,7 @@ public class ProductDto {
         ret.setPlace(mp.getPlace());
         ret.setNote(mp.getNote());
         ret.setStory(mp.getStory());
+//        ret.setRate(mp.getRate());
         ret.updateAll(mp);
         return ret;
     }

@@ -1,5 +1,7 @@
 package tw.appworks.school.example.stylish.repository.product;
 
+import java.math.BigDecimal;
+
 public interface IProductProjection {
 
     Long getId();
@@ -34,4 +36,5 @@ public interface IProductProjection {
 
     String getColorName();
 
+//    BigDecimal getRate();
 }
