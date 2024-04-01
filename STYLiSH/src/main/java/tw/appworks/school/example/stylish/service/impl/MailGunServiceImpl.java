@@ -63,7 +63,7 @@ public class MailGunServiceImpl {
             mailSender.send(mimeMessage);
             return "User created successfully";
         } catch (Exception e) {
-            return "User created successfully failed";
+            return "User created failed";
         }
     }
 }
