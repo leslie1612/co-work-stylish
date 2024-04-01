@@ -18,7 +18,7 @@ public class CommentDto implements Serializable {
 
     @Id
     @JsonProperty("id")
-    private Long id;
+    private long id;
 
 //    @JsonProperty("productId")
 //    private Long productId;
