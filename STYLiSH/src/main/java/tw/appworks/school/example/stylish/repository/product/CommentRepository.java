@@ -10,6 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 public interface CommentRepository extends JpaRepository<ProductComment, Integer> {
-    @Query(value="SELECT r.id, u.name ,r.rate, r.comment FROM (SELECT * FROM rating WHERE pid = :pid) r JOIN user u ON r.userid = u.id ORDER BY id DESC",nativeQuery = true)
+    @Query(value="SELECT r.id, u.id as userId, u.name ,r.rate, r.comment FROM (SELECT * FROM rating WHERE pid = :pid) r JOIN user u ON r.userid = u.id ORDER BY r.id DESC",nativeQuery = true)
     List<Map<String,Object>> getCommentsByProductId (@Param("pid") long productId);
 }

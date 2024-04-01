@@ -46,7 +46,7 @@ public class CommentServiceImpl implements CommentService {
 
             CommentDto commentDto = new CommentDto();
 
-            commentDto.setId((Long) comment.get("id"));
+            commentDto.setUserId((Long) comment.get("userId"));
             commentDto.setName((String) comment.get("name"));
             commentDto.setRate((Integer) comment.get("rate"));
             commentDto.setComment((String) comment.get("comment"));
