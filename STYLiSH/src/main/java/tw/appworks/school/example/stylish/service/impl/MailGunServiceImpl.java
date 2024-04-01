@@ -43,8 +43,8 @@ public class MailGunServiceImpl {
             final MimeMessageHelper email;
             email = new MimeMessageHelper(mimeMessage, true, "UTF-8");
 //        email.setTo(user.getEmail());
-//            email.setTo("xppp3082@gmail.com");
-            email.setTo("leslie20100430@gmail.com");
+            email.setTo("xppp3081@gmail.com");
+//            email.setTo("leslie20100430@gmail.com");
             email.setSubject(MAIL_SUBJECT);
             email.setFrom(new InternetAddress(mailFrom, mailFromName));
 
@@ -63,7 +63,7 @@ public class MailGunServiceImpl {
             mailSender.send(mimeMessage);
             return "User created successfully";
         } catch (Exception e) {
-            return "User created successfully failed";
+            return "User created failed";
         }
     }
 }
