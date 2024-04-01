@@ -45,6 +45,6 @@ public class ProductProjection implements IProductProjection {
 
     private String colorName;
 
-    private BigDecimal rate;
+//    private BigDecimal rate;
 
 }

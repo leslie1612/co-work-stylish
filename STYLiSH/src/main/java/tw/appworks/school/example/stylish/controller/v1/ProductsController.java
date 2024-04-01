@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.*;
 import tw.appworks.school.example.stylish.data.StylishResponse;
+import tw.appworks.school.example.stylish.data.dto.ProductDetailsDto;
 import tw.appworks.school.example.stylish.data.dto.ProductDto;
 import tw.appworks.school.example.stylish.service.ProductService;
 
@@ -86,8 +87,30 @@ public class ProductsController {
     @GetMapping("/details")
     @ResponseBody
     public ResponseEntity<?> getProductDetail(@RequestParam(name = "id") long id) {
-        ProductDto ret = productService.getProduct(id);
-        return ResponseEntity.status(HttpStatus.OK).body(new StylishResponse<>(ret));
+//        ProductDto ret = productService.getProduct(id);
+
+
+        ProductDetailsDto productDetailsDto = productService.getProductDetails(id);
+
+//        productDetailsDto.setId(ret.getId());
+//        productDetailsDto.setCategory(ret.getCategory());
+//        productDetailsDto.setTitle(ret.getTitle());
+//        productDetailsDto.setDescription(ret.getDescription());
+//        productDetailsDto.setPrice(ret.getPrice());
+//        productDetailsDto.setTexture(ret.getTexture());
+//        productDetailsDto.setWash(ret.getWash());
+//        productDetailsDto.setPlace(ret.getPlace());
+//        productDetailsDto.setNote(ret.getNote());
+//        productDetailsDto.setStory(ret.getStory());
+//        productDetailsDto.setMainImage(ret.getMainImage());
+//        productDetailsDto.setImages(ret.getImages());
+//        productDetailsDto.setVariants(ret.getVariants());
+//        productDetailsDto.setColors(ret.getColors());
+//        productDetailsDto.setSizes(ret.getSizes());
+
+//        productService.getRating(id);
+
+        return ResponseEntity.status(HttpStatus.OK).body(new StylishResponse<>(productDetailsDto));
     }
 
 

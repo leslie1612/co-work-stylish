@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import tw.appworks.school.example.stylish.data.dto.ProductDetailsDto;
 import tw.appworks.school.example.stylish.data.dto.ProductDto;
 import tw.appworks.school.example.stylish.data.form.ProductForm;
 import tw.appworks.school.example.stylish.model.product.Color;
@@ -133,6 +134,7 @@ public class ProductServiceImpl implements ProductService {
         variantRepository.saveAll(variants);
     }
 
+
     public List<ProductImage> saveProductImage(List<ProductImage> productImages) {
         return productImageRepository.saveAll(productImages);
     }
@@ -162,6 +164,36 @@ public class ProductServiceImpl implements ProductService {
         // set image path
         dto.setMainImage("https://d23yremcmyn3ne.cloudfront.net/" + dto.getMainImage());
         dto.setImages(dto.getImages().stream().map(image -> "https://d23yremcmyn3ne.cloudfront.net/" + image).collect(Collectors.toSet()));
+    }
+
+    public Double getRating(Long id) {
+        return productsRepository.getRating(id);
+    }
+
+
+    public ProductDetailsDto getProductDetails(long id) {
+
+        ProductDetailsDto productDetailsDto = new ProductDetailsDto();
+        ProductDto ret = getProduct(id);
+
+        productDetailsDto.setId(ret.getId());
+        productDetailsDto.setCategory(ret.getCategory());
+        productDetailsDto.setTitle(ret.getTitle());
+        productDetailsDto.setDescription(ret.getDescription());
+        productDetailsDto.setPrice(ret.getPrice());
+        productDetailsDto.setTexture(ret.getTexture());
+        productDetailsDto.setWash(ret.getWash());
+        productDetailsDto.setPlace(ret.getPlace());
+        productDetailsDto.setNote(ret.getNote());
+        productDetailsDto.setStory(ret.getStory());
+        productDetailsDto.setMainImage(ret.getMainImage());
+        productDetailsDto.setImages(ret.getImages());
+        productDetailsDto.setVariants(ret.getVariants());
+        productDetailsDto.setColors(ret.getColors());
+        productDetailsDto.setSizes(ret.getSizes());
+        productDetailsDto.setRating(getRating(id));
+
+        return productDetailsDto;
     }
 
 }

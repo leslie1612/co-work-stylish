@@ -36,5 +36,5 @@ public interface IProductProjection {
 
     String getColorName();
 
-    BigDecimal getRate();
+//    BigDecimal getRate();
 }

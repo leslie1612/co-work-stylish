@@ -25,18 +25,13 @@ public class ProductProjectionRepositoryImpl implements ProductProjectionReposit
         String query = """
                     SELECT p.id, p.category, p.title, p.description, p.price, p.texture,
                         p.wash, p.place, p.note, p.story, p.main_image as mainImage,
-                        v.size, v.stock, i.image, c.code as colorCode, c.name as colorName,
-                        round(AVG(r.rate),1) as rate
+                        v.size, v.stock, i.image, c.code as colorCode, c.name as colorName
                     FROM
                     (SELECT * FROM product %s ORDER BY id DESC LIMIT %d OFFSET %d) p
                     LEFT JOIN variant v ON p.id = v.product_id
                     LEFT JOIN color c ON v.color_id = c.id
                     LEFT JOIN product_images i ON v.product_id = i.product_id
                     LEFT JOIN rating r ON p.id = r.pid
-                    GROUP BY
-                        p.id, p.category, p.title, p.description, p.price, p.texture,
-                        p.wash, p.place, p.note, p.story, p.main_image,
-                        v.size, v.stock, i.image, c.code, c.name
                 """;
         String condition = category.equals("all") ? "" : "WHERE category = '" + category + "'";
 

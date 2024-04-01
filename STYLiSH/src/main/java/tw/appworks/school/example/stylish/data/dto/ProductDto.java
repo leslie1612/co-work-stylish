@@ -60,8 +60,8 @@ public class ProductDto {
     @JsonProperty("sizes")
     private Set<String> sizes;
 
-    @JsonProperty("rate")
-    private BigDecimal rate;
+//    @JsonProperty("rate")
+//    private BigDecimal rate;
 
     public void updateAll(IProductProjection mp) {
 
@@ -110,7 +110,7 @@ public class ProductDto {
         ret.setPlace(mp.getPlace());
         ret.setNote(mp.getNote());
         ret.setStory(mp.getStory());
-        ret.setRate(mp.getRate());
+//        ret.setRate(mp.getRate());
         ret.updateAll(mp);
         return ret;
     }
