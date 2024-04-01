@@ -67,16 +67,18 @@ public class CommentController {
                     @ApiResponse(description = "Internal error", responseCode = "500", content = @Content)
             }
     )
+
     @ResponseBody
     @GetMapping("/api/1.0/comments")
-    public ResponseEntity<Object> getComment(@Parameter(
-            name = "productId",
-            description = "Id of this product",
-            example = "202403300387",
-            required = true)
-                                             @RequestParam(name = "id") long productId) {
+    public ResponseEntity<Object> getComment(
+            @Parameter(
+                    name = "id",
+                    description = "Id of this product",
+                    example = "202403300387",
+                    required = true)
+            @RequestParam(name = "id") long id) {
 
-        return ResponseEntity.status(HttpStatus.OK).body(new StylishResponse<>(commentService.getComments(productId)));
+        return ResponseEntity.status(HttpStatus.OK).body(new StylishResponse<>(commentService.getComments(id)));
 
     }
 

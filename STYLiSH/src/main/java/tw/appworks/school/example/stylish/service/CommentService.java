@@ -9,6 +9,6 @@ public interface CommentService {
 
     void saveComment(CommentForm commentForm);
 
-    List<CommentDto> getComments(Long productId);
+    List<CommentDto> getComments(long productId);
 
 }

@@ -36,7 +36,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<CommentDto> getComments(Long productId) {
+    public List<CommentDto> getComments(long productId) {
 
         List<Map<String,Object>> comments = commentRepository.getCommentsByProductId(productId);
 
@@ -52,7 +52,7 @@ public class CommentServiceImpl implements CommentService {
             commentDto.setComment((String) comment.get("comment"));
 
             commentDtoList.add(commentDto);
-//            log.info((String) comment.get("id"));
+//
 //            System.out.println(comment.get("id"));
 //            System.out.println(comment.get("name"));
 //            System.out.println(comment.get("rate"));
