@@ -14,6 +14,7 @@ import tw.appworks.school.example.stylish.data.StylishResponse;
 import tw.appworks.school.example.stylish.data.form.CommentForm;
 import tw.appworks.school.example.stylish.error.ErrorResponse;
 import tw.appworks.school.example.stylish.service.CommentService;
+import tw.appworks.school.example.stylish.service.amazon.SnsService;
 
 @Controller
 @Slf4j
@@ -21,8 +22,13 @@ public class CommentController {
 
     private final CommentService commentService;
 
-    public CommentController(CommentService commentService) {
+    private final SnsService snsService;
+
+    public CommentController(CommentService commentService, SnsService snsService) {
+
         this.commentService = commentService;
+        this.snsService = snsService;
+
     }
 
     @Operation(
@@ -46,9 +52,14 @@ public class CommentController {
         try {
             commentService.saveComment(commentForm);
             log.info("You successfully added a comment on product" + commentForm.getProductId());
+
+            Long productId = commentForm.getProductId();
+
+            snsService.pubTopic("Check out the new comments for " + productId + " !");
+
             return ResponseEntity.ok().build();
         } catch (Exception e) {
-            log.warn(e.getMessage());
+            log.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse(e.getMessage()));
         }
     }
