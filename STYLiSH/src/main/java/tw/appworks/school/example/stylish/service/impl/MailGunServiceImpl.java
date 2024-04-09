@@ -54,7 +54,10 @@ public class MailGunServiceImpl {
             ctx.setVariable("name", user.getName());
             ctx.setVariable("springLogo", SPRING_LOGO_IMAGE);
             ctx.setVariable("url", confirmationUrl);
-
+//            ctx.setVariable("endpoint","https://traviss.beauty/api/1.0/user/test.png?category=XX");
+            ctx.setVariable("url2","https://45e8-59-120-11-125.ngrok-free.app/api/1.0/user/test.png?category=zz");
+            ctx.setVariable("endpoint","http://3.24.104.209/api/1.0/user/test.png?category=zz");
+            ctx.setVariable("testPNG","http://3.24.104.209/docker1.png");
             final String htmlContent = this.htmlTemplateEngine.process(TEMPLATE_NAME, ctx);
             email.setText(htmlContent, true);
 

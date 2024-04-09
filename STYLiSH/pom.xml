@@ -136,6 +136,7 @@
             <version>1.4.6</version>
             <scope>test</scope>
         </dependency>
+        <!-- Swagger -->
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>

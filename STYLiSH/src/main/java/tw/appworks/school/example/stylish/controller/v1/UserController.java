@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -27,6 +28,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("api/1.0/user")
 @Tag(name = "User", description = "Endpoints for user sign-in, sign-up and get user profile.")
+@Slf4j
 public class UserController {
 
     private static final String _native = UserService.NATIVE;
@@ -55,6 +57,14 @@ public class UserController {
                     @ApiResponse(description = "Internal error", responseCode = "500", content = @Content)
             }
     )
+    @GetMapping("/test.png")
+    public ResponseEntity<?> getTracking(@RequestParam(value = "category") String category) {
+
+//        ErrorResponse errorResponse = new ErrorResponse(200, "Wrong Category", "Please type in the correct category");
+        log.info(category);
+        return new ResponseEntity<>("POC Successfully !", HttpStatus.OK);
+    }
+
     @PostMapping(value = "/signup", consumes = {"application/json"})
     @ResponseBody
     public ResponseEntity<?> signUp(@RequestBody SignupForm signupForm, HttpServletResponse response) {
